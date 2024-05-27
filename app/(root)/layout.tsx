@@ -11,7 +11,7 @@ export default function RootLayout({
 
   const loggedIn = {firstName: 'Garland',lastName:'Thompson'}
   return (
-   <main>
+   <main className="flex h-screen w-full font-inter">
     <SideBar user={loggedIn}/>
      <div className="flex size-full flex-col">
         <div className="root-layout">
@@ -23,12 +23,10 @@ export default function RootLayout({
           />
           <div>
             <MobileNav  user={loggedIn}/>
-          </div>
         </div>
-         
-     </div>
+        </div>
     {children}
-   
+   </div>
    </main>
   );
 }
