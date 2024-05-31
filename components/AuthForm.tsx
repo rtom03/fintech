@@ -17,20 +17,18 @@ import {
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
 import { fields } from '@hookform/resolvers/typebox/src/__tests__/__fixtures__/data.js'
+import CustomInput from './CustomInput'
+import { authFormSchema } from '@/lib/utils'
+import { Loader2 } from 'lucide-react'
 
-
-
-const formSchema = z.object({
-  email: z.string().email(),
-})
 
 
 
 const AuthForm = ({ type }:{ type:string }) => {
     const [user,setUser] = useState(null);
-
-    const form = useForm<z.infer<typeof formSchema>>({
-      resolver: zodResolver(formSchema),
+     const [isLoading,setIsLoading] = useState(false)
+    const form = useForm<z.infer<typeof authFormSchema>>({
+      resolver: zodResolver(authFormSchema),
       defaultValues: {
         email: "",
       },
@@ -38,10 +36,12 @@ const AuthForm = ({ type }:{ type:string }) => {
     })
    
     // 2. Define a submit handler.
-    function onSubmit(values: z.infer<typeof formSchema>) {
+    function onSubmit(values: z.infer<typeof authFormSchema>) {
       // Do something with the form values.
       // ✅ This will be type-safe and validated.
+      setIsLoading(true);
       console.log(values)
+      setIsLoading(false)
     }
 
 
@@ -80,28 +80,21 @@ const AuthForm = ({ type }:{ type:string }) => {
         <>
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
-            <FormField
-              control={form.control}
-              name="email"
-              render={({ field }) => (
-                <div className='form-item'>
-                  <FormLabel className='form-label'>
-                    Email
-                  </FormLabel>
-                  <div className='flex w-full flex-col'>
-                     <FormControl>
-                      <Input 
-                      placeholder='Enter your email'
-                      className='input-class'
-                      {...field}
-                      />
-                     </FormControl>
-                     <FormMessage className='form-message mt-2'></FormMessage>
-                  </div>
-                </div>
-              )}
-            />
-            <Button type="submit">Submit</Button>
+           <CustomInput control={form.control} name="email"
+           label='Email' placeholder='Enter your email'/>
+
+           <CustomInput control={form.control} name='password'
+           label='Password' placeholder='Enter your password'/>
+            <Button type="submit" className='form-btn'>
+            {isLoading? (
+              <>
+              <Loader2 size={20}
+              className='animate-spin'/> &nbsp;
+              Loading...
+              </>
+            ):type === 'sign-in'
+            ? 'Sign-in' : 'Sign-up'}
+            </Button>
           </form>
       </Form>
        </>
