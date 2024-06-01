@@ -21,11 +21,14 @@ import CustomInput from './CustomInput'
 import { authFormSchema } from '@/lib/utils'
 import { Loader2 } from 'lucide-react'
 import { useRouter } from 'next/navigation'
-import { signIn, signUp } from '@/lib/actions/user.actions'
+import { getLoggedInUser, signIn, signUp } from '@/lib/actions/user.actions'
+import SignIn from '@/app/(auth)/sign-in/page'
 
 const AuthForm = ({ type }:{ type:string }) => {
-    const [user,setUser] = useState(null);
+    const [user,setUser] = useState();
      const [isLoading,setIsLoading] = useState(false)
+    //  const loggedInUser = await getLoggedInUser();
+
      const router = useRouter();
 
      const formSchema = authFormSchema(type);
@@ -49,13 +52,13 @@ const AuthForm = ({ type }:{ type:string }) => {
         setUser(newUser)
       }
       if(type === 'sign-in'){
-        // const response = await signUp({
-        //   email:data.email,
-        //   password:data.password
-        // })
-        // if(response){
-        //     router.push('/')
-        // }
+        const response = await signIn({
+          email:data.email,
+          password:data.password
+        })
+        if(response){
+            router.push('/')
+        }
       }
       // console.log(data);
       // setIsLoading(false);
@@ -66,8 +69,6 @@ const AuthForm = ({ type }:{ type:string }) => {
      }
       
     }
-
-
   return (
     <section className='auth-form'>
       <header className='flex flex-col gap-5 md:gap-8'>
