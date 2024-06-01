@@ -20,15 +20,17 @@ import { fields } from '@hookform/resolvers/typebox/src/__tests__/__fixtures__/d
 import CustomInput from './CustomInput'
 import { authFormSchema } from '@/lib/utils'
 import { Loader2 } from 'lucide-react'
-
-
-
+import { useRouter } from 'next/navigation'
+import { signIn, signUp } from '@/lib/actions/user.actions'
 
 const AuthForm = ({ type }:{ type:string }) => {
     const [user,setUser] = useState(null);
      const [isLoading,setIsLoading] = useState(false)
-    const form = useForm<z.infer<typeof authFormSchema>>({
-      resolver: zodResolver(authFormSchema),
+     const router = useRouter();
+
+     const formSchema = authFormSchema(type);
+    const form = useForm<z.infer<typeof formSchema>>({
+      resolver: zodResolver(formSchema),
       defaultValues: {
         email: "",
       },
@@ -36,19 +38,40 @@ const AuthForm = ({ type }:{ type:string }) => {
     })
    
     // 2. Define a submit handler.
-    function onSubmit(values: z.infer<typeof authFormSchema>) {
-      // Do something with the form values.
-      // ✅ This will be type-safe and validated.
-      setIsLoading(true);
-      console.log(values)
+    const onSubmit = async (data: z.infer<typeof formSchema>) => {
+     setIsLoading(true);
+
+     try{
+      // Sign up with Appwrite & create plaid link token
+      if(type === 'sign-up'){
+        const newUser = await signUp(data);
+
+        setUser(newUser)
+      }
+      if(type === 'sign-in'){
+        // const response = await signUp({
+        //   email:data.email,
+        //   password:data.password
+        // })
+        // if(response){
+        //     router.push('/')
+        // }
+      }
+      // console.log(data);
+      // setIsLoading(false);
+     } catch(error) {
+       console.log(error)
+     }finally {
       setIsLoading(false)
+     }
+      
     }
 
 
   return (
-    <section className=''>
+    <section className='auth-form'>
       <header className='flex flex-col gap-5 md:gap-8'>
-      <Link href='/' className='cursor-pointer flex item-center gap-1'>
+      <Link href='/' className='cursor-pointer flex items-center gap-1'>
               <Image 
               src="/icons/logo.svg"
               width={34}
@@ -73,19 +96,40 @@ const AuthForm = ({ type }:{ type:string }) => {
       </div>
       </header>
       {user? (
-        <div className='flex flex-col gap-4'>
+        <div className='flex flex-col gap-1'>
 
         </div>
       ):(
         <>
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+
+            {type === 'sign-up' && (
+              <>
+              <div className='flex gap-4'>
+              <CustomInput control={form.control} name="firstName"
+              label='First Name' placeholder='Enter your first name'/>
+              <CustomInput control={form.control} name="lastName"
+              label='Last Name' placeholder='Enter your last name'/>
+              </div>
+              <CustomInput control={form.control} name='address1' label="Address" placeholder='Enter your specific address' />
+              <CustomInput control={form.control} name='city' label="City" placeholder='Enter your city' />
+              <div className="flex gap-4">
+                <CustomInput control={form.control} name='state' label="State" placeholder='Example: NY' />
+                <CustomInput control={form.control} name='postalCode' label="Postal Code" placeholder='Example: 11101' />
+              </div>
+              <div className="flex gap-4">
+                <CustomInput control={form.control} name='dateOfBirth' label="Date of Birth" placeholder='YYYY-MM-DD' />
+                <CustomInput control={form.control} name='ssn' label="SSN" placeholder='Example: 1234' />
+              </div>
+              </>
+            )}
            <CustomInput control={form.control} name="email"
            label='Email' placeholder='Enter your email'/>
-
            <CustomInput control={form.control} name='password'
            label='Password' placeholder='Enter your password'/>
-            <Button type="submit" className='form-btn'>
+           <div className='flex flex-col gap-4'>
+            <Button type="submit" className='form-btn' disabled={isLoading}>
             {isLoading? (
               <>
               <Loader2 size={20}
@@ -95,8 +139,17 @@ const AuthForm = ({ type }:{ type:string }) => {
             ):type === 'sign-in'
             ? 'Sign-in' : 'Sign-up'}
             </Button>
+            </div>
           </form>
       </Form>
+      <footer>
+        <p className='text-14 font-normal text-gray-600'>
+          {type === 'sign-in' ? 'Dont have an Account?':'Already Have an Account'}
+        <Link href={type === 'sign-in'?'/sign-up':'/sign-in'} className='form-link'>
+          {type === 'sign-in'? 'Sign-up':'Sign-in'}
+        </Link>
+        </p>
+      </footer>
        </>
       )}
     </section >
