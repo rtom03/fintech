@@ -4,33 +4,34 @@ import TotalBalanceBox from '@/components/TotalBalanceBox'
 import { getLoggedInUser } from '@/lib/actions/user.actions'
 import React from 'react'
 
-const Home = async() => {
+const Home = async () => {
 
   const loggedIn = await getLoggedInUser()
   return (
     <div>
       <section className='home'>
-          <div className='home-content'>
-            <header className='home-header'>
-            <HeaderBox 
-            type="greeting"
-            title='Welcome'
-            user={loggedIn.name || 'Guest'}
-            subtext='Access and manage your account and transactions efficiently.'
+        <div className='home-content'>
+          <header className='home-header'>
+            <HeaderBox
+              type="greeting"
+              title='Welcome'
+              user={loggedIn.name.slice(0, 7) || 'Guest'}
+              subtext='Access and manage your account and transactions efficiently.'
             />
             <TotalBalanceBox
-            accounts={[]} 
-            totalBanks={1}
-            totalCurrentBalance={1250.35}
+              accounts={[]}
+              totalBanks={1}
+              totalCurrentBalance={1250.35}
             />
-            </header>
+          </header>
 
 
-          </div>
-          <RightSideBar user={loggedIn}
+        </div>
+        <RightSideBar
+          user={loggedIn}
           transactions={[]}
-          banks={[{currentBalance:100.20},{currentBalance:10200.30}]}
-          />
+          banks={[{ currentBalance: 100.20 }]}
+        />
       </section>
     </div>
   )
