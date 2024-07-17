@@ -37,11 +37,13 @@ export const signUp = async ({ password, ...userData }: SignUpParams) => {
       email, password, `${firstName} ${lastName}`);
 
     if (!newUserAccount) throw new Error("Error creating user")
+
     const dwollaCustomerUrl = await createDwollaCustomer({
       ...userData,
       type: 'personal'
     })
     if (!dwollaCustomerUrl) throw new Error('error creating Dwolla customer')
+
     const dwollaCustomerId = extractCustomerIdFromUrl(dwollaCustomerUrl)
     const newUser = await database.createDocument(
       DATABASE_ID!,
@@ -102,6 +104,7 @@ export const createLinkToken = async (user: User) => {
     const response = await plaidClient.linkTokenCreate(tokenParams)
     return parseStringify({ linkToken: response.data.link_token })
   } catch (error) {
+
     console.log(error)
   }
 }
@@ -161,6 +164,8 @@ export const exchangePublicToken = async ({
     const processorTokenResponse = await plaidClient.processorTokenCreate(request)
     const processorToken = processorTokenResponse.data.processor_token;
 
+    //create a funding source url for the account using the dwolla customer ID,
+    //processor token, and bank name
     const fundingSourceUrl = await addFundingSource({
       dwollaCustomerId: user.dwollaCustomerId,
       processorToken,
