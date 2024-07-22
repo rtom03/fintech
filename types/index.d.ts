@@ -48,7 +48,6 @@ declare type NewUserParams = {
   name: string;
   password: string;
 };
-
 declare type Account = {
   id: string;
   availableBalance: number;
@@ -174,7 +173,7 @@ declare interface PaginationProps {
 }
 
 declare interface PlaidLinkProps {
-  user: User;
+  user?: User;
   variant?: "primary" | "ghost";
   dwollaCustomerId?: string;
 }
