@@ -146,7 +146,7 @@ export const createBankAccount = async ({
   accountId,
   accessToken,
   fundingSourceUrl,
-  sharableId,
+  shareableId,
 
 }: createBankAccountProps) => {
   try {
@@ -161,7 +161,7 @@ export const createBankAccount = async ({
         accountId,
         accessToken,
         fundingSourceUrl,
-        sharableId,
+        shareableId,
       }
     )
     return parseStringify(bankAccount)
@@ -213,7 +213,7 @@ export const exchangePublicToken = async ({
       accountId: accountData.account_id,
       accessToken,
       fundingSourceUrl,
-      sharableId: encryptId(accountData.account_id)
+      shareableId: encryptId(accountData.account_id)
     })
 
     //Revalidate the path to reflect the changes 
