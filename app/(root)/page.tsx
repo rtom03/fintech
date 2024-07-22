@@ -1,3 +1,4 @@
+
 import HeaderBox from '@/components/HeaderBox'
 import RecentTransactions from '@/components/RecentTransactions'
 import RightSideBar from '@/components/RightSideBar'
@@ -33,7 +34,7 @@ const Home = async ({ searchParams: { id, page } }: SearchParamProps) => {
               subtext='Access and manage your account and transactions efficiently.'
             />
             <TotalBalanceBox
-              accounts={[accountsData]}
+              accounts={accountsData}
               totalBanks={accounts?.totalBanks}
               totalCurrentBalance={accounts?.totalCurrentBalance}
             />
@@ -47,7 +48,7 @@ const Home = async ({ searchParams: { id, page } }: SearchParamProps) => {
         </div>
         <RightSideBar
           user={loggedIn}
-          transactions={[accounts?.transactions]}
+          transactions={accounts?.transactions}
           banks={accountsData?.slice(0, 2)}
           currentBalance={accounts.currentBalance}
         />
