@@ -173,7 +173,7 @@ declare interface PaginationProps {
 }
 
 declare interface PlaidLinkProps {
-  user?: User;
+  user: User;
   variant?: "primary" | "ghost";
   dwollaCustomerId?: string;
 }
@@ -305,7 +305,7 @@ declare interface getUserInfoProps {
 
 declare interface exchangePublicTokenProps {
   publicToken: string;
-  user: User;
+  user?: User;
 }
 
 declare interface createBankAccountProps {

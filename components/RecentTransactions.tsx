@@ -1,9 +1,9 @@
-import { Link } from 'lucide-react'
 import React from 'react'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { BankTabItem } from './BankTabItem'
 import BankInfo from './BankInfo'
 import TransactionsTable from './TransactionsTable'
+import Link from 'next/link'
 
 
 const RecentTransactions = ({
@@ -15,11 +15,9 @@ const RecentTransactions = ({
     return (
         <section className='recent-transactions'>
             <header className='flex items-center justify-between'>
-                <h2 className='recent-transactions-label'>
-                    Recent Transactions
-                </h2>
+                <h2 className='recent-transactions-label'>Recent Transactions </h2>
                 <Link
-                    href={`/transaction-history/?id=${appwriteItemId}`}>
+                    href={`/transaction-history/?id=${appwriteItemId}`} className='view-all-btn'>
                     View all
                 </Link>
             </header>
