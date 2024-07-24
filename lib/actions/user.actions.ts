@@ -198,7 +198,7 @@ export const exchangePublicToken = async ({
     //create a funding source url for the account using the dwolla customer ID,
     //processor token, and bank name
     const fundingSourceUrl = await addFundingSource({
-      dwollaCustomerId: user.dwollaCustomerId,
+      dwollaCustomerId: user!.dwollaCustomerId,
       processorToken,
       bankName: accountData.name,
     });
@@ -206,9 +206,9 @@ export const exchangePublicToken = async ({
     // if the funding source url is not  created, throw an error
     if (!fundingSourceUrl) throw Error;
 
-    // Create a bank account using the user ID , item ID, account ID, access token, funding source URL, and sharable ID
+    // Create a bank account using the user ID , item ID, account ID, access token, funding source URL, and shareable ID
     await createBankAccount({
-      userId: user.$id,
+      userId: user!.$id,
       bankId: itemId,
       accountId: accountData.account_id,
       accessToken,
@@ -257,6 +257,24 @@ export const getBank = async ({ documentId }: getBankProps) => {
       [Query.equal('$id', [documentId])]
     )
     return parseStringify(bank.documents[0])
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+
+export const getBankAccountId = async ({ accountId }: getBankByAccountIdProps) => {
+
+  try {
+    const { database } = await createAdminClient();
+
+    const account = await database.listDocuments(
+      DATABASE_ID!,
+      BANK_COLLECTION_ID!,
+      [Query.equal('accountId', [accountId])]
+    )
+    if (account.total !== 1) return null
+    return parseStringify(account.documents[0])
   } catch (error) {
     console.log(error)
   }
