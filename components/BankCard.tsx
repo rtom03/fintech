@@ -3,17 +3,22 @@ import Image from 'next/image'
 import Link from 'next/link'
 import React from 'react'
 import Copy from './Copy'
+import { getLoggedInUser } from '@/lib/actions/user.actions'
 
-const BankCard = ({ account, userName, showBalance = true }: CreditCardProps
+const BankCard = async ({ account, showBalance = true }: CreditCardProps
 
 ) => {
+
+  const loggedIn = await getLoggedInUser()
+
   return (
     <div className='flex flex-col'>
-      <Link href={`/transaction-history/?id=${account.appwriteItemId}`} className='bank-card min-w-[320px]'>
+      <Link href={`/transaction-history/?id=${account.appwriteItemId}`} className='bank-card'>
         <div className='bank-card_content'>
           <div >
             <h1 className='text-16 font-semibold text-white'>
-              {userName}
+              {`${loggedIn?.firstName} ${loggedIn.lastName}`}
+
             </h1>
             <p className='font-ibm-plex-serif font-black'>
               {formatAmount(account.currentBalance)}
@@ -22,7 +27,7 @@ const BankCard = ({ account, userName, showBalance = true }: CreditCardProps
           <article className='flex flex-col'>
             <div className='flex justify-between gap-4'>
               <h1 className='text-12 font-semibold text-white'>
-                {userName}
+                {`${loggedIn?.firstName} ${loggedIn.lastName}`}
               </h1>
               <h2 className='text-12 font-semibold text-white'>
                 ●● / ●●
