@@ -64,7 +64,7 @@ const AuthForm = ({ type }: { type: string }) => {
           password: data.password
         })
         if (response)
-          redirect('/')
+          router.push('/')
       }
       // console.log(data);
       // setIsLoading(false);
