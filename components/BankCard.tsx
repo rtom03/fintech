@@ -17,8 +17,8 @@ const BankCard = async ({ account, showBalance = true }: CreditCardProps
         <div className='bank-card_content'>
           <div >
             <h1 className='text-16 font-semibold text-white'>
-              {`${loggedIn?.firstName} ${loggedIn.lastName}`}
-
+              {/* {`${loggedIn?.firstName} ${loggedIn.lastName}`} */}
+              {account.name}
             </h1>
             <p className='font-ibm-plex-serif font-black'>
               {formatAmount(account.currentBalance)}
@@ -27,7 +27,8 @@ const BankCard = async ({ account, showBalance = true }: CreditCardProps
           <article className='flex flex-col'>
             <div className='flex justify-between gap-4'>
               <h1 className='text-12 font-semibold text-white'>
-                {`${loggedIn?.firstName} ${loggedIn.lastName}`}
+                {/* {`${loggedIn?.firstName} ${loggedIn.lastName}`} */}
+                {account.name}
               </h1>
               <h2 className='text-12 font-semibold text-white'>
                 ●● / ●●

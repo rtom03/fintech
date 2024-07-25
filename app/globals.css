@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Concert+One&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -44,6 +45,13 @@
 
 .custom-scrollbar::-webkit-scrollbar-thumb:hover {
   background: #7878a3;
+}
+
+.concert-one-regular {
+  font-family: "Concert One";
+  font-size: 30px;
+  color: #00214f;
+  margin-top: -1px;
 }
 
 @layer utilities {
@@ -135,6 +143,8 @@
   .total-balance-amount {
     @apply text-24 lg:text-30 flex-1 font-semibold text-gray-900;
   }
+
+
 
   .recent-transactions {
     @apply flex w-full flex-col gap-6;
