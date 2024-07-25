@@ -86,6 +86,7 @@ const config = {
       fontFamily: {
         inter: "var(--font-inter)",
         "ibm-plex-serif": "var(--font-ibm-plex-serif)",
+        'concert-one': ['"Concert One"', 'cursive'],
       },
       keyframes: {
         "accordion-down": {

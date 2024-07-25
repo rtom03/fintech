@@ -1,3 +1,4 @@
+"use server";
 
 import HeaderBox from '@/components/HeaderBox'
 import RecentTransactions from '@/components/RecentTransactions'
@@ -47,7 +48,7 @@ const Home = async ({ searchParams: { id, page } }: SearchParamProps) => {
         </div>
         <RightSideBar
           user={loggedIn}
-          transactions={accounts?.transactions}
+          transactions={account.transactions}
           banks={accountsData?.slice(0, 2)}
           currentBalance={accounts.currentBalance}
         />
