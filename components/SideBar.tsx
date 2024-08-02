@@ -17,7 +17,7 @@ const SideBar = ({ user }: SiderbarProps) => {
             <Link href='/'
                className='mb-8 cursor-pointer flex item-center gap-2'>
                <Image
-                  src="/icons/wealth.svg"
+                  src="/icons/circle.svg"
                   width={34}
                   height={44}
                   alt="Horizon logo"

@@ -54,6 +54,24 @@
   margin-top: -1px;
 }
 
+.gradient-st0 {
+  background: linear-gradient(90deg, #58BBEA 0%, #5DB3E4 19.17%, #699DD4 49.05%, #7D79BA 85.74%, #8669AE 100%);
+}
+
+/* Gradient for .st1 */
+.gradient-st1 {
+  background: linear-gradient(90deg,
+      #ABCB37 0%,
+      #A9CB38 26.93%,
+      #A0C93B 42.4%,
+      #92C741 54.96%,
+      #7EC449 65.98%,
+      #65C054 75.98%,
+      #45BB61 85.24%,
+      #20B570 93.76%,
+      #00B07D 100%);
+}
+
 @layer utilities {
   .input-class {
     @apply text-16 placeholder:text-16 rounded-lg border border-gray-300 text-gray-900 placeholder:text-gray-500;

@@ -14,7 +14,7 @@ export const metadata: Metadata = {
   title: "Circle",
   description: "Circle is a modern banking platform for everyone",
   icons: {
-    icon: './icons/wealth.svg'
+    icon: './icons/circle.svg'
   }
 };
 
