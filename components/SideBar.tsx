@@ -22,7 +22,7 @@ const SideBar = ({ user }: SiderbarProps) => {
                   height={44}
                   alt="Horizon logo"
                   className='size-[34px] mt-1 max-xl:size-14' />
-               <h1 className='concert-one-regular'>WealthFlow</h1>
+               <h1 className='concert-one-regular'>Circle</h1>
             </Link>
             {sidebarLinks.map((item) => {
                const isActive =

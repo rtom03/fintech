@@ -11,8 +11,8 @@ const ibmPlexSerif = IBM_Plex_Serif({
   variable: '--font-ibm-plex-serif'
 })
 export const metadata: Metadata = {
-  title: "WealthFlow",
-  description: "WealthFlow is a modern banking platform for everyone",
+  title: "Circle",
+  description: "Circle is a modern banking platform for everyone",
   icons: {
     icon: './icons/wealth.svg'
   }
