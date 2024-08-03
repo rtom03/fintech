@@ -24,11 +24,22 @@ import { redirect, useRouter } from 'next/navigation'
 import { getLoggedInUser, signIn, signUp } from '@/lib/actions/user.actions'
 import SignIn from '@/app/(auth)/sign-in/page'
 import PlaidLink from './PlaidLink'
+import { FlipWords } from "@/components/ui/flip-words";
+
 
 const AuthForm = ({ type }: { type: string }) => {
   const router = useRouter();
   const [user, setUser] = useState();
   const [isLoading, setIsLoading] = useState(false)
+
+
+  const world = () => {
+    return (
+      <div>🌎 </div>
+    )
+  }
+  const words = ["Circle", "Empowering-Your-Finances"];
+
   //  const loggedInUser = await getLoggedInUser();
 
   const formSchema = authFormSchema(type);
@@ -79,15 +90,18 @@ const AuthForm = ({ type }: { type: string }) => {
     <section className='auth-form'>
       <header className='flex flex-col gap-5 md:gap-8'>
         <Link href='/' className='cursor-pointer flex items-center gap-1'>
+          <h2 className='concert-one-regular'>The</h2>
           <Image
             src="/icons/circle.svg"
             width={74}
             height={74}
             alt="Circle logo" />
-          <h1 className='concert-one-regular '>Circle</h1>
+          <div className='concert-one-regular '>
+            <FlipWords words={words} className='w-96' /> <br />
+          </div>
         </Link>
         <div className='flex flex-col gap-1 md:gap-3'>
-          <h1 className='text-24 lg:text-36 font-semibold text-gray-900'>
+          <h1 className='text-24 lg:text-20 font-semibold text-gray-900'>
             {user
               ? 'Link Account'
               : type === 'sign-in'
